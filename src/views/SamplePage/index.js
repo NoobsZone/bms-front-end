@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Pagination } from "@mui/material";
+import { Typography, Pagination, Button } from "@mui/material";
 
 // project imports
 import MainCard from "ui-component/cards/MainCard";
@@ -11,27 +11,41 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+
 function SamplePage() {
+
+  //Data or variables
   const baseUrl = "http://localhost:5000/";
   const [products, setProducts] = useState([]);
   console.log(products);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);
+
+
+  //Methods
   useEffect(() => {
     fetch("http://localhost:5000/api/v1/products")
       .then((response) => response.json())
       .then((data) => setProducts(data.allProducts));
   }, [page]);
+
+
   const handleChange = (event, value) => {
     setPage(value);
     console.log(value, "balsal");
   };
-
+//image handling
   const hi = (images) => {
     return images.substr(7);
-  }
+  };
+
+  //alert 
+  const hello=()=>{
+    alert('Hello');
+  };
   return (
     <TableContainer component={Paper}>
+     <Button variant="contained" onClick={hello}>ADD</Button>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -43,9 +57,7 @@ function SamplePage() {
           </TableRow>
         </TableHead>
         <TableBody>
-
-          {
-          products.map((row) => (
+          {products.map((row) => (
             <TableRow
               key={row.index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -54,7 +66,14 @@ function SamplePage() {
               <TableCell align="left">{row.price}</TableCell>
               <TableCell align="left">{row.brandName}</TableCell>
               <TableCell align="left">{row.category}</TableCell>
-              <img height="50px" width="50px" src={`${baseUrl}${ hi(row.images)}`} />
+              <TableCell>
+                <img
+                  height="50px"
+                  width="50px"
+                  src={`${baseUrl}${hi(row.images)}`}
+                />
+              </TableCell>
+
               {/* <TableCell align="left">{row.images}</TableCell> */}
               {/* <TableCell align="left">{row.featured === false && 'NO'}</TableCell> */}
             </TableRow>
