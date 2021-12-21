@@ -5,7 +5,7 @@ import MainRoutes from './MainRoutes';
 import AuthenticationRoutes from './AuthenticationRoutes';
 import config from 'config';
 
-// ==============================||    ROUTING RENDER   ||============================== //
+// ==============================||    ROUTING RENDER     ||============================== //
 
 export default function ThemeRoutes() {
     return useRoutes([MainRoutes, AuthenticationRoutes], config.basename);
