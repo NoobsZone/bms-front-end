@@ -12,13 +12,13 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 function SamplePage() {
-  const baseUrl = "http://localhost:5001/";
+  const baseUrl = "http://localhost:5000/";
   const [products, setProducts] = useState([]);
   console.log(products);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);
   useEffect(() => {
-    fetch("http://localhost:5001/api/v1/products")
+    fetch("http://localhost:5000/api/v1/products")
       .then((response) => response.json())
       .then((data) => setProducts(data.allProducts));
   }, [page]);
@@ -26,6 +26,10 @@ function SamplePage() {
     setPage(value);
     console.log(value, "balsal");
   };
+
+  const hi = (images) => {
+    return images.substr(7);
+  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -39,7 +43,9 @@ function SamplePage() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((row) => (
+
+          {
+          products.map((row) => (
             <TableRow
               key={row.index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -48,7 +54,7 @@ function SamplePage() {
               <TableCell align="left">{row.price}</TableCell>
               <TableCell align="left">{row.brandName}</TableCell>
               <TableCell align="left">{row.category}</TableCell>
-              <img src={`${baseUrl}${row.images}`} />
+              <img height="50px" width="50px" src={`${baseUrl}${ hi(row.images)}`} />
               {/* <TableCell align="left">{row.images}</TableCell> */}
               {/* <TableCell align="left">{row.featured === false && 'NO'}</TableCell> */}
             </TableRow>
