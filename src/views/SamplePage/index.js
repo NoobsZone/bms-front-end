@@ -10,17 +10,16 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Dialog from '@mui/material/Dialog';
+import CustomizedDialogs from './CustomizedDialogs';
 
-
-function SamplePage() {
-
+function SamplePage(props) {
   //Data or variables
   const baseUrl = "http://localhost:5000/";
   const [products, setProducts] = useState([]);
   console.log(products);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);
-
 
   //Methods
   useEffect(() => {
@@ -29,23 +28,43 @@ function SamplePage() {
       .then((data) => setProducts(data.allProducts));
   }, [page]);
 
-
-  const handleChange = (event, value) => {
-    setPage(value);
-    console.log(value, "balsal");
-  };
-//image handling
+  // const handleChange = (event, value) => {
+  //   setPage(value);
+  //   console.log(value, "balsal");
+  // };
+  //image handling
   const hi = (images) => {
     return images.substr(7);
   };
 
-  //alert 
-  const hello=()=>{
-    alert('Hello');
-  };
+  //alert
+  // const hello = () => {
+  //   // const [showDialog, setShowDialog] = React.useState(false);
+  //   // const open = () => setShowDialog(true);
+  //   // const close = () => setShowDialog(false);
+  //   const [open, setOpen] = React.useState(false);
+
+  //   const handleClickOpen = () => {
+  //     setOpen(true);
+  //   };
+  //   const handleClose = () => {
+  //     setOpen(false);
+  //   };
+  // };
   return (
     <TableContainer component={Paper}>
-     <Button variant="contained" onClick={hello}>ADD</Button>
+       <CustomizedDialogs/>
+      <div>
+      {/* <button onClick={open}>ADD</button> */}
+
+      {/* <Dialog isOpen={showDialog} onDismiss={close}>
+        <button className="close-button" onClick={close}>
+          <VisuallyHidden>Close</VisuallyHidden>
+          <span aria-hidden>×</span>
+        </button>
+        <p>Hello there. I am a dialog</p>
+      </Dialog> */}
+    </div>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -80,7 +99,7 @@ function SamplePage() {
           ))}
         </TableBody>
       </Table>
-      <Pagination count={10} page={page} onChange={handleChange} />
+      {/* <Pagination count={10} page={page} onChange={handleChange} /> */}
     </TableContainer>
   );
 }

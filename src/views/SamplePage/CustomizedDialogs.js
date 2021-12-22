@@ -9,7 +9,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-imp
+import BasicTextFields from './BasicTextFields'
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -49,30 +49,50 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function CustomizedDialogs() {
-  // const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const saveProduct=()=>{
+    fetch('http://localhost:5000/api/v1/products', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        // productName:req.body.productName,
+        // category:req.body.category,
+        // brandName:req.body.brandName,
+        // price:req.body.price,
+      })
+    })
+  }
 
   return (
     <div>
-     
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Add Product
+      </Button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
+          Add New Product
         </BootstrapDialogTitle>
-        
+        <DialogContent dividers>
+          <BasicTextFields/>
+        </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
+          <Button autoFocus onClick={saveProduct}>
+            Save
           </Button>
         </DialogActions>
       </BootstrapDialog>
